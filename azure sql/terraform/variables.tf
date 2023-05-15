@@ -41,7 +41,8 @@ variable "default_tags" {
   description = "Default tags for Azure resources."
 
   default = {
-    demo  = "iac"
-    demo  = "azsql"
+    demo1  = "iac"
+    demo2  = "tf"
+    demo3  = "azsql"
   }
 }

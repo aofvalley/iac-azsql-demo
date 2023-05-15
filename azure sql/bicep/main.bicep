@@ -17,6 +17,11 @@ param administratorLoginPassword string
 resource sqlServer 'Microsoft.Sql/servers@2021-08-01-preview' = {
   name: serverName
   location: location
+  tags: {
+    demo1: 'iac'
+    demo2: 'bicep'
+    demo3: 'azsql'
+  }
   properties: {
     administratorLogin: administratorLogin
     administratorLoginPassword: administratorLoginPassword
@@ -27,8 +32,23 @@ resource sqlDB 'Microsoft.Sql/servers/databases@2021-08-01-preview' = {
   parent: sqlServer
   name: sqlDBName
   location: location
+  tags: {
+    demo1: 'iac'
+    demo2: 'bicep'
+    demo3: 'azsql'
+  }
   sku: {
     name: 'Basic'
     tier: 'Basic'
   }
 }
+
+resource firewallRule 'Microsoft.Sql/servers/firewallRules@2021-08-01-preview' = {
+  parent: sqlServer
+  name: 'AllowAzureServices'
+  properties: {
+    startIpAddress: '0.0.0.0'
+    endIpAddress: '0.0.0.0'
+  }
+}
+
