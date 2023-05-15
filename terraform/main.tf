@@ -46,10 +46,11 @@ resource "azurerm_mssql_database" "db" {
 
 # Enables the "Allow Access to Azure services" box as described in the API docs
 # https://docs.microsoft.com/en-us/rest/api/sql/firewallrules/createorupdate
-resource "azurerm_sql_firewall_rule" "example" {
+
+resource "azurerm_mssql_firewall_rule" "serverfw" {
   name                = "allow-azure-services"
-  resource_group_name = azurerm_resource_group.example.name
-  server_name         = azurerm_sql_server.example.name
+  resource_group_name = azurerm_resource_group.rg.name
+  server_name         = azurerm_resource_group.server.name
   start_ip_address    = "0.0.0.0"
   end_ip_address      = "0.0.0.0"
 }
