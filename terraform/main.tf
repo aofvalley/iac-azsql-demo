@@ -5,6 +5,7 @@ resource "random_pet" "rg_name" {
 resource "azurerm_resource_group" "rg" {
   name     = random_pet.rg_name.id
   location = var.resource_group_location
+  tags     = var.default_tags
 }
 
 resource "random_pet" "azurerm_mssql_server_name" {

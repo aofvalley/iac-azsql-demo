@@ -1,7 +1,7 @@
 variable "resource_group_location" {
   type        = string
   description = "Location for all resources."
-  default     = "eastus"
+  default     = "westeurope"
 }
 
 variable "resource_group_name_prefix" {
@@ -41,8 +41,7 @@ variable "default_tags" {
   description = "Default tags for Azure resources."
 
   default = {
-    iac   = "true"
-    demo  = "true"
-    azsql = "true"
+    demo  = "iac"
+    demo  = "azsql"
   }
 }
