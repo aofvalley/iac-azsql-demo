@@ -28,3 +28,21 @@ variable "admin_password" {
   sensitive   = true
   default     = null
 }
+
+variable "sku_name" {
+  type        = string
+  description = "The database sku name. For example, S0, S1, S2, P1, P2, P4, P6, P11, P15, PRS1, PRS2, PRS4, PRS6, PRS11, and PRS15."
+  sensitive   = true
+  default     = S0
+}
+
+variable "default_tags" {
+  type        = map(string)
+  description = "Default tags for Azure resources."
+
+  default = {
+    iac   = "true"
+    demo  = "true"
+    azsql = "true"
+  }
+}

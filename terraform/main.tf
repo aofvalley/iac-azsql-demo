@@ -32,9 +32,24 @@ resource "azurerm_mssql_server" "server" {
   administrator_login          = var.admin_username
   administrator_login_password = local.admin_password
   version                      = "12.0"
+  # adding tags to the server
+  tags                         = var.default_tags
 }
 
 resource "azurerm_mssql_database" "db" {
   name      = var.sql_db_name
   server_id = azurerm_mssql_server.server.id
+  # adding sku and tags to the database
+  sku_name  = var.sku_name
+  tags      = var.default_tags
+}
+
+# Enables the "Allow Access to Azure services" box as described in the API docs
+# https://docs.microsoft.com/en-us/rest/api/sql/firewallrules/createorupdate
+resource "azurerm_sql_firewall_rule" "example" {
+  name                = "allow-azure-services"
+  resource_group_name = azurerm_resource_group.example.name
+  server_name         = azurerm_sql_server.example.name
+  start_ip_address    = "0.0.0.0"
+  end_ip_address      = "0.0.0.0"
 }
