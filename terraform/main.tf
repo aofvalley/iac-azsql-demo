@@ -49,8 +49,7 @@ resource "azurerm_mssql_database" "db" {
 
 resource "azurerm_mssql_firewall_rule" "serverfw" {
   name                = "allow-azure-services"
-  resource_group_name = azurerm_resource_group.rg.name
-  server_name         = azurerm_resource_group.server.name
+  server_id         = azurerm_resource_group.server.id
   start_ip_address    = "0.0.0.0"
   end_ip_address      = "0.0.0.0"
 }
