@@ -1,0 +1,60 @@
+name: Despliegue de recursos en Azure
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout del repositorio
+      uses: actions/checkout@v2
+
+    - name: Instalar Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'
+
+    - name: Instalar dependencias
+      run: npm install -g @azure/bicep-cli@0.4
+
+    - name: Compilar archivos Bicep
+      run: |
+        az bicep build --file "./Github Actions/test/storageacc.bicep"
+        az bicep build --file "./Github Actions/test/resourcegroup.bicep"
+        az bicep build --file "./Github Actions/test/azsql.bicep"
+
+    - name: Desplegar cuenta de almacenamiento
+      uses: Azure/bicep-build-actions@v0.2
+      with:
+        azureCredential: ${{ secrets.AZURE_CREDENTIALS }}
+        templateFile: "./Github Actions/bicep/storageacc.json"
+        parameters: |
+          {
+            "storageAccountName": "mi-storage-account"
+          }
+
+    - name: Desplegar grupo de recursos
+      uses: Azure/bicep-build-actions@v0.2
+      with:
+        azureCredential: ${{ secrets.AZURE_CREDENTIALS }}
+        templateFile: "./Github Actions/bicep/resourcegroup.json"
+        parameters: |
+          {
+            "resourceGroupName": "mi-resource-group"
+          }
+
+    - name: Desplegar Azure SQL Server
+      uses: Azure/bicep-build-actions@v0.2
+      with:
+        azureCredential: ${{ secrets.AZURE_CREDENTIALS }}
+        templateFile: "./Github Actions/bicep/azsql.json"
+        parameters: |
+          {
+            "sqlServerName": "mi-sql-server",
+            "adminUsername": "admin",
+            "adminPassword": ${{ secrets.SQL_SERVER_PASSWORD }}
+          }
