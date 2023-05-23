@@ -12,7 +12,8 @@ on:
 
 env:
    bicepfilePath: ${{ github.workspace }}/Github Actions/bicep/azsql.bicep
-
+   resourceGroupName: alfonsodbicepgitrg
+   resourceGroupLocation: westeurope
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
     # This workflow contains a single job called "build"
@@ -48,6 +49,14 @@ jobs:
         uses: Azure/login@v1.4.3
         with:
             creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Az CLI Create Resource Group
+        uses: Azure/CLI@v1
+        with:
+          inlineScript: |
+            az group create \
+            --name ${{ env.resourceGroupName }} \
+            --location ${{ env.resourceGroupLocation }}
 
       - name: bicep-build-output
         uses: Azure/bicep-build-action@v1.0.1

@@ -1,10 +1,11 @@
-param resourceGroupName string = 'alfonsodsqlbicepgit'
 param serverName string = 'alfonsodbicepserver'
 param databaseName string = 'BicepDB'
+param location string = 'westeurope'
+
 
 resource sqlServer 'Microsoft.Sql/servers@2014-04-01' = {
   name: serverName
-  location: resourceGroup().location
+  location: location
   properties: {
     administratorLogin: 'sqladmin'
     administratorLoginPassword: 'MyP@ssword123'
@@ -23,6 +24,7 @@ resource firewallRule 'Microsoft.Sql/servers/firewallRules@2014-04-01' = {
 
 resource database 'Microsoft.Sql/servers/databases@2014-04-01' = {
   name: databaseName
+  location: location
   parent: sqlServer
   properties: {
     collation: 'SQL_Latin1_General_CP1_CI_AS'
