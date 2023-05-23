@@ -1,6 +1,6 @@
-param resourceGroupName string = 'myResourceGroup'
-param serverName string = 'mySqlServer'
-param databaseName string = 'Test1'
+param resourceGroupName string = 'alfonsodsqlbicepgit'
+param serverName string = 'alfonsodbicepserver'
+param databaseName string = 'BicepDB'
 
 resource sqlServer 'Microsoft.Sql/servers@2014-04-01' = {
   name: serverName
