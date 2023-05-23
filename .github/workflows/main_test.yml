@@ -28,7 +28,7 @@ jobs:
         az bicep build --file "./Github Actions/test/azsql.bicep"
 
     - name: Desplegar cuenta de almacenamiento
-      uses: Azure/bicep-build-actions@v0.2
+      uses: Azure/bicep-build-action@v1.0.1
       with:
         azureCredential: ${{ secrets.AZURE_CREDENTIALS }}
         templateFile: "./Github Actions/bicep/storageacc.json"
@@ -38,7 +38,7 @@ jobs:
           }
 
     - name: Desplegar grupo de recursos
-      uses: Azure/bicep-build-actions@v0.2
+      uses: Azure/bicep-build-action@v1.0.1
       with:
         azureCredential: ${{ secrets.AZURE_CREDENTIALS }}
         templateFile: "./Github Actions/bicep/resourcegroup.json"
@@ -48,7 +48,7 @@ jobs:
           }
 
     - name: Desplegar Azure SQL Server
-      uses: Azure/bicep-build-actions@v0.2
+      uses: Azure/bicep-build-action@v1.0.1
       with:
         azureCredential: ${{ secrets.AZURE_CREDENTIALS }}
         templateFile: "./Github Actions/bicep/azsql.json"
