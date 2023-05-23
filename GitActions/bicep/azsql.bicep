@@ -1,6 +1,6 @@
-param serverName string = 'alfonsodbicepserver'
-param databaseName string = 'BicepDB'
-param location string = 'westeurope'
+param serverName string 
+param databaseName string 
+param location string 
 
 
 resource sqlServer 'Microsoft.Sql/servers@2014-04-01' = {
