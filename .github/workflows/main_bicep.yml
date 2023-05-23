@@ -13,8 +13,8 @@ on:
 env:
    resourceGroupName: alfonsodbicepgitrg
    resourceGroupLocation: westeurope
-   bicepfilePath: ./azure sql/bicep/main.bicep
-   bicepparametersfilePath: ./azure sql/bicep/main-bicepfile-sqlserver_deployment.parameters.json
+   bicepfilePath: ${{ github.workspace }}/azure sql/bicep/main.bicep
+   bicepparametersfilePath: ${{ github.workspace }}/azure sql/bicep/main-bicepfile-sqlserver_deployment.parameters.json
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -60,6 +60,7 @@ jobs:
             az group create \
             --name ${{ env.resourceGroupName }} \
             --location ${{ env.resourceGroupLocation }}
+
       - name: Deploy bicep to Azure
         uses: Azure/cli@v1
         with:
