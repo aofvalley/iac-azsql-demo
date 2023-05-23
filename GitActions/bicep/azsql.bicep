@@ -1,8 +1,10 @@
 param serverName string 
 param databaseName string 
 param location string
-param administratorLoginPassword string
 param administratorLogin string
+@secure()
+param administratorLoginPassword string
+
 
 
 

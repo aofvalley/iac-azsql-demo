@@ -3,16 +3,16 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "serverName": {
-      "value": "alfonsodbiser"
+      "value": "fonbicepserver"
     },
     "databaseName": {
-      "value": "BicepDB"
+      "value": "BicepDB2"
     },
     "location": {
       "value": "westeurope"
     },
     "administratorLoginPassword": {
-      "value": "${{ secrets.SQL_ADMIN_PASSWORD }}"
+      "value": "Pa$$w0rd!!!"
     },
     "administratorLogin": {
       "value": "sqladminlogin"

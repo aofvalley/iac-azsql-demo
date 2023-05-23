@@ -1,6 +1,6 @@
 # This workflow 
 
-name: Bicep-Template_Build
+name: Bicep-AZSQL Github Actions Workflow
 on:
   workflow_dispatch:
   push:
@@ -13,7 +13,7 @@ on:
 env:
    bicepfilePath: ${{ github.workspace }}/GitActions/bicep/azsql.bicep
    bicepparametersfilePath: ${{ github.workspace }}/GitActions/bicep/azsql.parameters.json
-   resourceGroupName: alfonsodbcprg
+   resourceGroupName: fonbiceprg
    resourceGroupLocation: westeurope
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
