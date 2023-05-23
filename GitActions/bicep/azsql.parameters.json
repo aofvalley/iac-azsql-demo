@@ -10,6 +10,12 @@
     },
     "location": {
       "value": "westeurope"
+    },
+    "administratorLoginPassword": {
+      "value": "${{ secrets.SQL_ADMIN_PASSWORD }}"
+    },
+    "administratorLogin": {
+      "value": "sqladminlogin"
     }
   }
 }

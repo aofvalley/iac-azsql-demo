@@ -1,14 +1,17 @@
 param serverName string 
 param databaseName string 
-param location string 
+param location string
+param administratorLoginPassword string
+param administratorLogin string
+
 
 
 resource sqlServer 'Microsoft.Sql/servers@2014-04-01' = {
   name: serverName
   location: location
   properties: {
-    administratorLogin: 'sqladmin'
-    administratorLoginPassword: 'MyP@ssword123'
+    administratorLogin: administratorLogin
+    administratorLoginPassword: administratorLoginPassword
     version: '12.0'
   }
 }
