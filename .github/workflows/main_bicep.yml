@@ -11,11 +11,11 @@ on:
     - main
 
 env:
-   bicepfilePath: ${{ github.workspace }}/Github Actions/bicep/azsql.bicep
-   bicepparametersfilePath: ${{ github.workspace }}/Github Actions/bicep/azsql.parameters.json
+   bicepfilePath: ${{ github.workspace }}/GitActions/bicep/azsql.bicep
+   bicepparametersfilePath: ${{ github.workspace }}/GitActions/bicep/azsql.parameters.json
    resourceGroupName: alfonsodbicepgitrg
    resourceGroupLocation: westeurope
-   
+
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
     # This workflow contains a single job called "build"
@@ -32,13 +32,14 @@ jobs:
         - name: bicep-build-output
           uses: Azure/bicep-build-action@v1.0.1
           with:
-              bicepFilePath: ${{  env.bicepfilePath }}
-              outputFilePath: ./azuredeploy.json
+              bicepFilePath: ${{ env.bicepfilePath }}
+              outputFilePath: ./main.json
   
         - name: Upload a Build Artifact
           uses: actions/upload-artifact@v3.1.1
           with:
             path: ./main.json
+            
   # Deploys the template to Azure
     deploy: 
       runs-on: ubuntu-latest
@@ -64,15 +65,15 @@ jobs:
         uses: Azure/bicep-build-action@v1.0.1
         with:
           # Bicep main file path
-          bicepFilePath: ${{  env.bicepfilePath }}
+          bicepFilePath: ${{ env.bicepfilePath }}
           # ARM template output path
-          outputFilePath: ./azuredeploy.json
+          outputFilePath: ./main.json
 
       - name: Deploy bicep to Azure
         uses: Azure/cli@v1
         with:
           inlineScript: |
               az deployment group create \
-              --template-file ${{  env.bicepfilePath }} \
-              --parameters ${{  env.bicepparametersfilePath }} \
+              --template-file ${{ env.bicepfilePath }} \
+              --parameters ${{ env.bicepparametersfilePath }} \
               --resource-group ${{ env.resourceGroupName }}
