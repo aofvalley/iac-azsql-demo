@@ -11,10 +11,7 @@ on:
     - main
 
 env:
-   resourceGroupName: alfonsodbicepgitrg
-   resourceGroupLocation: westeurope
-   bicepfilePath: ${{ github.workspace }}/azure sql/bicep/main.bicep
-   bicepparametersfilePath: ${{ github.workspace }}/azure sql/bicep/main-bicepfile-sqlserver_deployment.parameters.json
+   bicepfilePath: ${{ github.workspace }}/Github Actions/bicep/azsql.bicep
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -33,7 +30,6 @@ jobs:
           uses: Azure/bicep-build-action@v1.0.1
           with:
               bicepFilePath: ${{  env.bicepfilePath }}
-              bicepparametersfilePath: ${{  env.bicepparametersfilePath }}
               outputFilePath: ./main.json
   
         - name: Upload a Build Artifact
@@ -52,20 +48,10 @@ jobs:
         uses: Azure/login@v1.4.3
         with:
             creds: ${{ secrets.AZURE_CREDENTIALS }}
- 
-      - name: Az CLI Create Resource Group
-        uses: Azure/CLI@v1
-        with:
-          inlineScript: |
-            az group create \
-            --name ${{ env.resourceGroupName }} \
-            --location ${{ env.resourceGroupLocation }}
 
       - name: Deploy bicep to Azure
         uses: Azure/cli@v1
         with:
           inlineScript: |
             az deployment group create \
-            --template-file ${{  env.bicepfilePath }} \
-            --parameters ${{  env.bicepparametersfilePath }} \
-            --resource-group ${{ env.resourceGroupName }}
+            --template-file ${{  env.bicepfilePath }} 
