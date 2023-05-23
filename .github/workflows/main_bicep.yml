@@ -30,7 +30,7 @@ jobs:
           uses: Azure/bicep-build-action@v1.0.1
           with:
               bicepFilePath: ${{  env.bicepfilePath }}
-              outputFilePath: ./main.json
+              outputFilePath: ./azuredeploy.json
   
         - name: Upload a Build Artifact
           uses: actions/upload-artifact@v3.1.1
@@ -49,9 +49,10 @@ jobs:
         with:
             creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - name: Deploy bicep to Azure
-        uses: Azure/cli@v1
+      - name: bicep-build-output
+        uses: Azure/bicep-build-action@v1.0.1
         with:
-          inlineScript: |
-            az deployment group create \
-            --template-file ${{  env.bicepfilePath }} 
+          # Bicep main file path
+          bicepFilePath: ${{  env.bicepfilePath }}
+          # ARM template output path
+          outputFilePath: ./azuredeploy.json
