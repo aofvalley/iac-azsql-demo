@@ -14,3 +14,5 @@ resource rg 'Microsoft.Resources/resourceGroups@2020-06-01' = {
   }
   properties: {}
 }
+
+output resourceGroupName string = rg.name
