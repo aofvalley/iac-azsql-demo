@@ -1,25 +1,23 @@
-on: [push]
-name: Azure ARM
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  build-and-deploy:
-    runs-on: ubuntu-latest
-    steps:
-
-      # Checkout code
-    - uses: actions/checkout@main
-
-      # Log into Azure
-    - uses: azure/login@v1
-      with:
-        creds: ${{ secrets.AZURE_CREDENTIALS }}
-
-      # Deploy Bicep file        
-    - name: bicep-build-output
-      uses: Azure/bicep-build-action@v1.0.1
-      with:
-        subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
-        template: ./azure sql/bicep/main.bicep
-    # Bicep main file path
-        bicepFilePath: ./azure sql/bicep/main.bicep
-    # ARM template output path
-        outputFilePath: ./azure sql/bicep/main-bicepfile-sqlserver_deployment.json
+    # This workflow contains a single job called "build"
+    build:
+      # The type of runner that the job will run on
+      runs-on: ubuntu-latest
+  
+      # Steps represent a sequence of tasks that will be executed as part of the job
+      steps:
+        # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+        - uses: actions/checkout@v3
+  
+        # Builds the Bicep template
+        - name: bicep-build-output
+          uses: Azure/bicep-build-action@v1.0.1
+          with:
+              bicepFilePath: ./azure sql/bicep/main.bicep
+              outputFilePath: ./main.json
+  
+        - name: Upload a Build Artifact
+          uses: actions/upload-artifact@v3.1.1
+          with:
+            path: ./main.json
