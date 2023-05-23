@@ -3,7 +3,7 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "serverName": {
-            "value": "7ba66z3ziccbu"
+            "value": "alfonsodgitbicep"
         },
         "sqlDBName": {
             "value": "bicepDB"
