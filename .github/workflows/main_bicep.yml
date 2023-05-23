@@ -12,8 +12,10 @@ on:
 
 env:
    bicepfilePath: ${{ github.workspace }}/Github Actions/bicep/azsql.bicep
+   bicepparametersfilePath: ${{ github.workspace }}/Github Actions/bicep/azsql.parameters.json
    resourceGroupName: alfonsodbicepgitrg
    resourceGroupLocation: westeurope
+   
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
     # This workflow contains a single job called "build"
@@ -65,3 +67,12 @@ jobs:
           bicepFilePath: ${{  env.bicepfilePath }}
           # ARM template output path
           outputFilePath: ./azuredeploy.json
+
+      - name: Deploy bicep to Azure
+        uses: Azure/cli@v1
+        with:
+          inlineScript: |
+              az deployment group create \
+              --template-file ${{  env.bicepfilePath }} \
+              --parameters ${{  env.bicepparametersfilePath }} \
+              --resource-group ${{ env.resourceGroupName }}
