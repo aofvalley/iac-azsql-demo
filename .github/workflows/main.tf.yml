@@ -23,12 +23,7 @@ jobs:
         uses: hashicorp/setup-terraform@v1
         with:
           terraform_version: latest
-
-      - name: Iniciar sesión en Azure
-        uses: azure/login@v1
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
-
+          
       - name: Desplegar Azure SQL Database
         run: |
           cd ${{ github.workspace }}/GitActions/terraform
