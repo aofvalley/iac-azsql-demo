@@ -1,4 +1,4 @@
-name: Despliegue de Azure SQL Database
+name: Terraform - AZSQL Github Actions Workflow
 
 on:
   workflow_dispatch: {}
@@ -16,15 +16,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout del repositorio
+      - name: Repository checkout
         uses: actions/checkout@v3
 
-      - name: Configurar el entorno de Terraform
+      - name: Terraform environment setup
         uses: hashicorp/setup-terraform@v2
         with:
           terraform_version: latest
 
-      - name: Desplegar Azure SQL Database
+      - name: Deployment using Terraform
         run: |
           cd ${{ github.workspace }}/GitActions/terraform
 
