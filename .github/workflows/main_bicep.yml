@@ -1,6 +1,6 @@
 # This workflow 
 
-name: Bicep-AZSQL Github Actions Workflow
+name: Bicep - AZSQL Github Actions Workflow
 on:
   workflow_dispatch: {}
 
