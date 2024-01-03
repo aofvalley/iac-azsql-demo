@@ -15,7 +15,7 @@
             "value": "azadminlogin"
         },
         "administratorLoginPassword": {
-            "value": null
+            "value": "Pa$$w0rd!!!"
         }
     }
 }
